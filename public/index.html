@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ml">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#173c31">
+<title>മരുതോളിക്കണ്ടി തറവാട് | കുടുംബവൃക്ഷം</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manjari:wght@400;700&family=Noto+Serif+Malayalam:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="house-mark" aria-hidden="true">⌂</div>
+  <p class="eyebrow">നമ്മുടെ വേരുകൾ · നമ്മുടെ പൈതൃകം</p>
+  <h1>മരുതോളിക്കണ്ടി തറവാട്</h1>
+  <p class="sub">തലമുറകളെ ബന്ധിപ്പിക്കുന്ന കുടുംബവൃക്ഷം</p>
+  <div class="hero-actions"><button id="downloadAll" class="gold">കുടുംബവൃക്ഷം PDF</button><button id="adminOpen" class="outline">അഡ്മിൻ ലോഗിൻ</button></div>
+</header>
+<main class="wrap">
+  <section class="toolbar">
+    <input id="search" type="search" placeholder="പേര് തിരയുക / Search family members">
+    <span id="count" class="muted"></span>
+  </section>
+  <section id="tree" class="tree" aria-live="polite"><div class="loading">കുടുംബവിവരങ്ങൾ ലഭ്യമാക്കുന്നു…</div></section>
+  <section id="adminPanel" class="admin hidden">
+    <div class="admin-head"><div><p class="eyebrow">നിയന്ത്രണ പാനൽ</p><h2>കുടുംബ അഡ്മിൻ</h2><p id="who" class="muted"></p></div><button id="logout" class="outline">ലോഗ് ഔട്ട്</button></div>
+    <div class="tabs"><button data-tab="members" class="active">അംഗങ്ങൾ</button><button data-tab="editors">എഡിറ്റർമാർ</button></div>
+    <div id="membersTab">
+      <form id="memberForm" class="form-grid">
+        <h3 id="formTitle">പുതിയ അംഗത്തെ ചേർക്കുക</h3><input type="hidden" id="memberId">
+        <label>പൂർണ്ണ പേര് *<input id="full_name" required></label>
+        <label>ലിംഗം<select id="gender"><option value="">തിരഞ്ഞെടുക്കുക</option><option>പുരുഷൻ</option><option>സ്ത്രീ</option><option>മറ്റുള്ളവ</option></select></label>
+        <label>ജനന തീയതി<input id="birth_date" type="date"></label><label>മരണ തീയതി<input id="death_date" type="date"></label>
+        <label>പിതാവ്<select id="parent1_id"><option value="">തിരഞ്ഞെടുക്കുക</option></select></label>
+        <label>മാതാവ്<select id="parent2_id"><option value="">തിരഞ്ഞെടുക്കുക</option></select></label>
+        <label>ജീവിത പങ്കാളി<input id="spouse_name"></label><label>കുടുംബശാഖ<input id="branch"></label>
+        <label class="wide">ചുരുക്ക വിവരണം<textarea id="biography" rows="3"></textarea></label>
+        <label class="wide">ഫോട്ടോ URL (ഐച്ഛികം)<input id="photo_url" type="url" placeholder="https://…"></label>
+        <label class="check"><input id="is_public" type="checkbox" checked> പൊതുജനങ്ങൾക്ക് കാണിക്കാം</label>
+        <div class="wide form-actions"><button class="gold" type="submit">സേവ് ചെയ്യുക</button><button id="clearForm" type="button" class="outline">മായ്ക്കുക</button><span id="formMsg" class="muted"></span></div>
+      </form>
+      <div id="adminMembers" class="admin-list"></div>
+    </div>
+    <div id="editorsTab" class="hidden">
+      <form id="editorForm" class="form-grid">
+        <h3>പുതിയ എഡിറ്റർ അക്കൗണ്ട്</h3>
+        <label>യൂസർനെയിം *<input id="editor_username" required minlength="4"></label>
+        <label>പേര് *<input id="editor_name" required></label>
+        <label class="wide">താൽക്കാലിക പാസ്‌വേഡ് *<input id="editor_password" type="password" required minlength="12"><small>കുറഞ്ഞത് 12 അക്ഷരങ്ങൾ. സുരക്ഷിതമായി നേരിട്ട് കൈമാറുക.</small></label>
+        <div class="wide"><button class="gold">എഡിറ്റർ സൃഷ്ടിക്കുക</button><span id="editorMsg" class="muted"></span></div>
+      </form><div id="editorList" class="admin-list"></div>
+    </div>
+  </section>
+</main>
+<dialog id="loginDialog"><form id="loginForm" method="dialog" class="login-box"><button type="button" id="closeLogin" class="x">×</button><p class="eyebrow">ADMIN ACCESS</p><h2>അഡ്മിൻ ലോഗിൻ</h2><label>Username<input id="loginUser" autocomplete="username" required></label><label>Password<input id="loginPass" type="password" autocomplete="current-password" required></label><button class="gold">ലോഗിൻ</button><p id="loginMsg" class="muted"></p></form></dialog>
+<footer>മരുതോളിക്കണ്ടി തറവാട് · കുടുംബ പൈതൃകം സംരക്ഷിക്കാം</footer>
+<script src="/app.js"></script>
+</body></html>

@@ -1,0 +1,16 @@
+{
+  "name": "marutholikkandi-tharavadu",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create marutholikkandi-family",
+    "db:migrate:local": "wrangler d1 execute FAMILY_DB --local --file=./migrations/0001_initial.sql",
+    "db:migrate:remote": "wrangler d1 execute FAMILY_DB --remote --file=./migrations/0001_initial.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
